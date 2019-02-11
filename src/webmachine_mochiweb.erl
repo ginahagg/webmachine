@@ -30,7 +30,14 @@
 -define (WM_OPTION_DEFAULTS, [{error_handler, webmachine_error_handler}]).
 
 start(Options) ->
-    {DispatchList, PName, DGroup, WMOptions, OtherOptions} = get_wm_options(Options),
+    {DispatchList, PName, DGroup, WMOptions, OtherOptions0} = get_wm_options(Options),
+    OtherOptions =
+        case application:get_env(webmachine, recbuf) of
+            {ok, RecBuf} ->
+                [{recbuf, RecBuf}|OtherOptions0];
+            _ ->
+                OtherOptions0
+        end,
     webmachine_router:init_routes(DGroup, DispatchList),
     _ = [application_set_unless_env_or_undef(K, V) || {K, V} <- WMOptions],
     MochiName = list_to_atom(to_list(PName) ++ "_mochiweb"),
