@@ -1,4 +1,0 @@
-[{<<"mochiweb">>,
-  {git,"git://github.com/basho/mochiweb.git",
-       {ref,"f22e7c3be471120a426e3337fb6525f0a89f17c3"}},
-  0}].
