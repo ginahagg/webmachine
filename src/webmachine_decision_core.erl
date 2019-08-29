@@ -33,7 +33,7 @@ handle_request(Resource, ReqState) ->
         d(v3b13)
     catch
         error:_ ->
-            error_response(erlang:get_stacktrace())
+            error_response(erlang:get_log())
     end.
 
 wrcall(X) ->
